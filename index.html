@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос для создания интернет-магазина</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #444;
+            font-size: 1.05em;
+        }
+
+        .label-hint {
+            font-weight: 400;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: #f0f4ff;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-item .checkbox-description {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .url-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .url-input-group input {
+            flex: 1;
+        }
+
+        .add-url-btn {
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .add-url-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .url-list {
+            margin-top: 15px;
+        }
+
+        .url-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .url-item a {
+            color: #667eea;
+            text-decoration: none;
+            word-break: break-all;
+            flex: 1;
+        }
+
+        .url-item a:hover {
+            text-decoration: underline;
+        }
+
+        .remove-url {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        .remove-url:hover {
+            background: #ee3742;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .radio-item:hover {
+            background: #f0f4ff;
+            border-color: #667eea;
+        }
+
+        .radio-item input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .radio-item label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .telegram-btn:hover {
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+        }
+
+        .telegram-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #1565c0;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .url-input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 Опрос для создания интернет-магазина</h1>
+            <p>Помогите нам понять ваши потребности и создать идеальный магазин</p>
+        </div>
+
+        <div class="form-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <form id="surveyForm" onsubmit="handleSubmit(event)">
+                <!-- Контактная информация -->
+                <div class="section">
+                    <div class="section-title">Контактная информация</div>
+                    
+                    <div class="form-group">
+                        <label for="clientName">Ваше имя / Название компании *</label>
+                        <input type="text" id="clientName" name="clientName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67">
+                    </div>
+                </div>
+
+                <!-- О проекте -->
+                <div class="section">
+                    <div class="section-title">О вашем проекте</div>
+                    
+                    <div class="form-group">
+                        <label for="productType">Тип товаров, которые вы будете продавать *</label>
+                        <input type="text" id="productType" name="productType" placeholder="Например: одежда, электроника, продукты питания..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="targetAudience">Целевая аудитория</label>
+                        <textarea id="targetAudience" name="targetAudience" placeholder="Опишите вашу целевую аудиторию (возраст, интересы, потребности)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Бюджет проекта</label>
+                        <select id="budget" name="budget">
+                            <option value="">Выберите диапазон</option>
+                            <option value="under-100k">До 100 000 ₽</option>
+                            <option value="100k-300k">100 000 - 300 000 ₽</option>
+                            <option value="300k-500k">300 000 - 500 000 ₽</option>
+                            <option value="500k-1m">500 000 - 1 000 000 ₽</option>
+                            <option value="over-1m">Свыше 1 000 000 ₽</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeline">Желаемые сроки запуска</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">Выберите срок</option>
+                            <option value="asap">Как можно скорее</option>
+                            <option value="1-2months">1-2 месяца</option>
+                            <option value="3-4months">3-4 месяца</option>
+                            <option value="5-6months">5-6 месяцев</option>
+                            <option value="flexible">Гибкие сроки</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Технологический стек -->
+                <div class="section">
+                    <div class="section-title">Технологический стек</div>
+                    
+                    <div class="form-group">
+                        <label>Предпочтительный стек технологий *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="stack-nextjs" name="techStack" value="nextjs" required>
+                                <label for="stack-nextjs">Next.js (React) - современный, SEO-оптимизированный</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="stack-react" name="techStack" value="react">
+                                <label for="stack-react">React - гибкий и популярный</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="stack-vue" name="techStack" value="vue">
+                                <label for="stack-vue">Vue.js - простой и быстрый</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="stack-wordpress" name="techStack" value="wordpress">
+                                <label for="stack-wordpress">WordPress + WooCommerce - готовое решение</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="stack-shopify" name="techStack" value="shopify">
+                                <label for="stack-shopify">Shopify - платформа для интернет-магазинов</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="stack-other" name="techStack" value="other">
+                                <label for="stack-other">Другое (укажите в комментариях)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="backendPreference">Предпочтения по backend</label>
+                        <select id="backendPreference" name="backendPreference">
+                            <option value="">Не важно / Не знаю</option>
+                            <option value="nodejs">Node.js</option>
+                            <option value="php">PHP</option>
+                            <option value="python">Python (Django/Flask)</option>
+                            <option value="ruby">Ruby on Rails</option>
+                            <option value="serverless">Serverless (AWS Lambda, Vercel Functions)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="databasePreference">Предпочтения по базе данных</label>
+                        <select id="databasePreference" name="databasePreference">
+                            <option value="">Не важно / Не знаю</option>
+                            <option value="postgresql">PostgreSQL</option>
+                            <option value="mysql">MySQL</option>
+                            <option value="mongodb">MongoDB</option>
+                            <option value="firebase">Firebase</option>
+                            <option value="supabase">Supabase</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Функционал магазина -->
+                <div class="section">
+                    <div class="section-title">Функционал интернет-магазина</div>
+                    <label class="label-hint">Отметьте все функции, которые вам необходимы:</label>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-catalog" name="functions" value="catalog">
+                            <label for="func-catalog">
+                                Каталог товаров с фильтрами
+                                <div class="checkbox-description">Поиск, сортировка, фильтры по параметрам</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-cart" name="functions" value="cart">
+                            <label for="func-cart">
+                                Корзина покупок
+                                <div class="checkbox-description">Добавление, редактирование, сохранение</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-checkout" name="functions" value="checkout">
+                            <label for="func-checkout">
+                                Оформление заказа
+                                <div class="checkbox-description">Многошаговый процесс оформления</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-payment" name="functions" value="payment">
+                            <label for="func-payment">
+                                Интеграция платежных систем
+                                <div class="checkbox-description">ЮKassa, Stripe, PayPal, банковские карты</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-user-account" name="functions" value="user-account">
+                            <label for="func-user-account">
+                                Личный кабинет пользователя
+                                <div class="checkbox-description">История заказов, профиль, избранное</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-auth" name="functions" value="auth">
+                            <label for="func-auth">
+                                Регистрация и авторизация
+                                <div class="checkbox-description">Email, соцсети, SMS-код</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-reviews" name="functions" value="reviews">
+                            <label for="func-reviews">
+                                Отзывы и рейтинги
+                                <div class="checkbox-description">Система отзывов на товары</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-wishlist" name="functions" value="wishlist">
+                            <label for="func-wishlist">
+                                Список желаний
+                                <div class="checkbox-description">Сохранение товаров для покупки позже</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-compare" name="functions" value="compare">
+                            <label for="func-compare">
+                                Сравнение товаров
+                                <div class="checkbox-description">Сравнение характеристик товаров</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-search" name="functions" value="search">
+                            <label for="func-search">
+                                Умный поиск
+                                <div class="checkbox-description">Поиск с автодополнением и подсказками</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-admin" name="functions" value="admin">
+                            <label for="func-admin">
+                                Админ-панель
+                                <div class="checkbox-description">Управление товарами, заказами, пользователями</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-inventory" name="functions" value="inventory">
+                            <label for="func-inventory">
+                                Управление складом
+                                <div class="checkbox-description">Остатки, резервирование, уведомления</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-discounts" name="functions" value="discounts">
+                            <label for="func-discounts">
+                                Система скидок и промокодов
+                                <div class="checkbox-description">Купоны, акции, программы лояльности</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-email" name="functions" value="email">
+                            <label for="func-email">
+                                Email-рассылки
+                                <div class="checkbox-description">Уведомления, новости, маркетинг</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-analytics" name="functions" value="analytics">
+                            <label for="func-analytics">
+                                Аналитика и отчеты
+                                <div class="checkbox-description">Статистика продаж, конверсии, поведение</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-multilang" name="functions" value="multilang">
+                            <label for="func-multilang">
+                                Мультиязычность
+                                <div class="checkbox-description">Поддержка нескольких языков</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-currency" name="functions" value="currency">
+                            <label for="func-currency">
+                                Мультивалютность
+                                <div class="checkbox-description">Разные валюты и конвертация</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-mobile" name="functions" value="mobile">
+                            <label for="func-mobile">
+                                Мобильное приложение
+                                <div class="checkbox-description">iOS и Android приложения</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-chat" name="functions" value="chat">
+                            <label for="func-chat">
+                                Онлайн-чат поддержки
+                                <div class="checkbox-description">Чат с операторами, FAQ, боты</div>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="func-subscription" name="functions" value="subscription">
+                            <label for="func-subscription">
+                                Подписки и регулярные заказы
+                                <div class="checkbox-description">Автоматические повторные заказы</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Образцы и референсы -->
+                <div class="section">
+                    <div class="section-title">Образцы и референсы</div>
+                    
+                    <div class="form-group">
+                        <label>Ссылки на сайты, которые вам нравятся *</label>
+                        <label class="label-hint">Добавьте ссылки на интернет-магазины, дизайн или функционал которых вам понравился</label>
+                        
+                        <div class="url-input-group">
+                            <input type="url" id="referenceUrl" placeholder="https://example.com" pattern="https?://.+">
+                            <button type="button" class="add-url-btn" onclick="addReferenceUrl()">Добавить</button>
+                        </div>
+                        
+                        <div class="url-list" id="referenceUrlsList"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="designStyle">Предпочтительный стиль дизайна</label>
+                        <select id="designStyle" name="designStyle">
+                            <option value="">Выберите стиль</option>
+                            <option value="minimalist">Минималистичный</option>
+                            <option value="modern">Современный</option>
+                            <option value="classic">Классический</option>
+                            <option value="bold">Яркий и смелый</option>
+                            <option value="elegant">Элегантный</option>
+                            <option value="playful">Игривый</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="colorPreferences">Цветовые предпочтения</label>
+                        <input type="text" id="colorPreferences" name="colorPreferences" placeholder="Например: синий и белый, пастельные тона, темная тема...">
+                    </div>
+                </div>
+
+                <!-- Дополнительная информация -->
+                <div class="section">
+                    <div class="section-title">Дополнительная информация</div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequirements">Особые требования или пожелания</label>
+                        <textarea id="specialRequirements" name="specialRequirements" placeholder="Любая дополнительная информация, которая поможет нам лучше понять ваш проект..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="competitors">Конкуренты или похожие магазины</label>
+                        <textarea id="competitors" name="competitors" placeholder="Ссылки на сайты конкурентов или похожие магазины"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">📱 Отправить опрос</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // НАСТРОЙКИ TELEGRAM БОТА
+        // ============================================
+        // Замените эти значения на свои:
+        const TELEGRAM_BOT_TOKEN = '8564727516:AAEX57w1Tp8NKq07nVk9baP3lz9na4Vi5Vo';
+        const TELEGRAM_CHAT_ID = '1053151551';
+        // ============================================
+
+        let referenceUrls = [];
+
+        function addReferenceUrl() {
+            const input = document.getElementById('referenceUrl');
+            const url = input.value.trim();
+            
+            if (url && isValidUrl(url)) {
+                if (!referenceUrls.includes(url)) {
+                    referenceUrls.push(url);
+                    renderReferenceUrls();
+                    input.value = '';
+                } else {
+                    alert('Эта ссылка уже добавлена');
+                }
+            } else {
+                alert('Пожалуйста, введите корректный URL (начинается с http:// или https://)');
+            }
+        }
+
+        function isValidUrl(string) {
+            try {
+                const url = new URL(string);
+                return url.protocol === 'http:' || url.protocol === 'https:';
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function removeReferenceUrl(index) {
+            referenceUrls.splice(index, 1);
+            renderReferenceUrls();
+        }
+
+        function renderReferenceUrls() {
+            const list = document.getElementById('referenceUrlsList');
+            list.innerHTML = '';
+            
+            referenceUrls.forEach((url, index) => {
+                const item = document.createElement('div');
+                item.className = 'url-item';
+                item.innerHTML = `
+                    <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>
+                    <button type="button" class="remove-url" onclick="removeReferenceUrl(${index})">Удалить</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function updateProgress() {
+            const form = document.getElementById('surveyForm');
+            const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+            const filled = Array.from(inputs).filter(input => {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    return form.querySelector(`input[name="${input.name}"]:checked`);
+                }
+                return input.value.trim() !== '';
+            }).length;
+            
+            const progress = (filled / inputs.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Обновление прогресса при изменении полей
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('surveyForm');
+            form.addEventListener('input', updateProgress);
+            form.addEventListener('change', updateProgress);
+            updateProgress();
+        });
+
+        function getFormData() {
+            const form = document.getElementById('surveyForm');
+            const formData = new FormData(form);
+            
+            if (referenceUrls.length === 0) {
+                return null;
+            }
+
+            return {
+                contact: {
+                    name: formData.get('clientName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone')
+                },
+                project: {
+                    productType: formData.get('productType'),
+                    targetAudience: formData.get('targetAudience'),
+                    budget: formData.get('budget'),
+                    timeline: formData.get('timeline')
+                },
+                techStack: {
+                    stack: formData.get('techStack'),
+                    backend: formData.get('backendPreference'),
+                    database: formData.get('databasePreference')
+                },
+                functions: Array.from(formData.getAll('functions')),
+                references: referenceUrls,
+                design: {
+                    style: formData.get('designStyle'),
+                    colors: formData.get('colorPreferences')
+                },
+                additional: {
+                    requirements: formData.get('specialRequirements'),
+                    competitors: formData.get('competitors')
+                }
+            };
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const data = getFormData();
+            if (!data) {
+                alert('Пожалуйста, добавьте хотя бы одну ссылку на образец');
+                return;
+            }
+
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = '⏳ Отправка...';
+
+            try {
+                // Отправка в Telegram
+                await sendToTelegram(data);
+                
+                // Вывод результатов в консоль
+                console.log('Данные опроса:', JSON.stringify(data, null, 2));
+                
+                // Создание текстового файла с результатами (опционально)
+                const text = formatResults(data);
+                downloadResults(text, data.contact.name || 'survey');
+                
+                alert('✅ Спасибо! Ваш опрос успешно отправлен. Мы свяжемся с вами в ближайшее время!');
+                event.target.reset();
+                referenceUrls = [];
+                renderReferenceUrls();
+                updateProgress();
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами напрямую.');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
+        }
+
+        function formatTelegramMessage(data) {
+            let message = '<b>🛒 ОПРОС ДЛЯ СОЗДАНИЯ ИНТЕРНЕТ-МАГАЗИНА</b>\n\n';
+            
+            message += '<b>👤 КОНТАКТНАЯ ИНФОРМАЦИЯ</b>\n';
+            message += `Имя/Компания: <b>${escapeHtml(data.contact.name)}</b>\n`;
+            message += `Email: ${escapeHtml(data.contact.email)}\n`;
+            message += `Телефон: ${data.contact.phone ? escapeHtml(data.contact.phone) : 'Не указан'}\n\n`;
+            
+            message += '<b>📦 О ПРОЕКТЕ</b>\n';
+            message += `Тип товаров: <b>${escapeHtml(data.project.productType)}</b>\n`;
+            if (data.project.targetAudience) {
+                message += `Целевая аудитория: ${escapeHtml(data.project.targetAudience)}\n`;
+            }
+            message += `Бюджет: ${getBudgetLabel(data.project.budget)}\n`;
+            message += `Сроки: ${getTimelineLabel(data.project.timeline)}\n\n`;
+            
+            message += '<b>⚙️ ТЕХНОЛОГИЧЕСКИЙ СТЕК</b>\n';
+            message += `Основной стек: <b>${getStackLabel(data.techStack.stack)}</b>\n`;
+            if (data.techStack.backend) {
+                message += `Backend: ${data.techStack.backend}\n`;
+            }
+            if (data.techStack.database) {
+                message += `База данных: ${data.techStack.database}\n`;
+            }
+            message += '\n';
+            
+            message += '<b>🔧 ФУНКЦИОНАЛ</b>\n';
+            if (data.functions.length > 0) {
+                data.functions.forEach(func => {
+                    message += `✓ ${getFunctionLabel(func)}\n`;
+                });
+            } else {
+                message += 'Не выбрано\n';
+            }
+            message += '\n';
+            
+            message += '<b>🔗 ОБРАЗЦЫ И РЕФЕРЕНСЫ</b>\n';
+            data.references.forEach((url, index) => {
+                message += `${index + 1}. <a href="${url}">${url}</a>\n`;
+            });
+            message += '\n';
+            
+            message += '<b>🎨 ДИЗАЙН</b>\n';
+            if (data.design.style) {
+                message += `Стиль: ${data.design.style}\n`;
+            }
+            if (data.design.colors) {
+                message += `Цвета: ${escapeHtml(data.design.colors)}\n`;
+            }
+            message += '\n';
+            
+            if (data.additional.requirements || data.additional.competitors) {
+                message += '<b>📝 ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</b>\n';
+                if (data.additional.requirements) {
+                    message += `Особые требования: ${escapeHtml(data.additional.requirements)}\n`;
+                }
+                if (data.additional.competitors) {
+                    message += `Конкуренты: ${escapeHtml(data.additional.competitors)}\n`;
+                }
+                message += '\n';
+            }
+            
+            message += `📅 Дата заполнения: ${new Date().toLocaleString('ru-RU')}`;
+            
+            return message;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function sendToTelegram(data) {
+            if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+                throw new Error('Telegram бот не настроен. Проверьте константы TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в коде.');
+            }
+
+            const message = formatTelegramMessage(data);
+            
+            // Telegram Bot API endpoint
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML',
+                    disable_web_page_preview: false
+                })
+            });
+
+            const result = await response.json();
+
+            if (!result.ok) {
+                let errorMessage = result.description || 'Ошибка отправки';
+                
+                if (result.error_code === 401) {
+                    errorMessage = 'Неверный токен бота. Проверьте правильность токена в коде.';
+                } else if (result.error_code === 400 && result.description.includes('chat not found')) {
+                    errorMessage = 'Чат не найден. Проверьте правильность Chat ID в коде.';
+                } else if (result.error_code === 400 && result.description.includes('message is too long')) {
+                    errorMessage = 'Сообщение слишком длинное. Telegram ограничивает сообщения до 4096 символов.';
+                }
+                
+                throw new Error(errorMessage);
+            }
+
+            return result;
+        }
+
+        function formatResults(data) {
+            let text = '='.repeat(60) + '\n';
+            text += 'ОПРОС ДЛЯ СОЗДАНИЯ ИНТЕРНЕТ-МАГАЗИНА\n';
+            text += '='.repeat(60) + '\n\n';
+
+            text += 'КОНТАКТНАЯ ИНФОРМАЦИЯ\n';
+            text += '-'.repeat(60) + '\n';
+            text += `Имя/Компания: ${data.contact.name}\n`;
+            text += `Email: ${data.contact.email}\n`;
+            text += `Телефон: ${data.contact.phone || 'Не указан'}\n\n`;
+
+            text += 'О ПРОЕКТЕ\n';
+            text += '-'.repeat(60) + '\n';
+            text += `Тип товаров: ${data.project.productType}\n`;
+            text += `Целевая аудитория: ${data.project.targetAudience || 'Не указана'}\n`;
+            text += `Бюджет: ${getBudgetLabel(data.project.budget)}\n`;
+            text += `Сроки: ${getTimelineLabel(data.project.timeline)}\n\n`;
+
+            text += 'ТЕХНОЛОГИЧЕСКИЙ СТЕК\n';
+            text += '-'.repeat(60) + '\n';
+            text += `Основной стек: ${getStackLabel(data.techStack.stack)}\n`;
+            text += `Backend: ${data.techStack.backend || 'Не указан'}\n`;
+            text += `База данных: ${data.techStack.database || 'Не указана'}\n\n`;
+
+            text += 'ФУНКЦИОНАЛ\n';
+            text += '-'.repeat(60) + '\n';
+            if (data.functions.length > 0) {
+                data.functions.forEach(func => {
+                    text += `✓ ${getFunctionLabel(func)}\n`;
+                });
+            } else {
+                text += 'Не выбрано\n';
+            }
+            text += '\n';
+
+            text += 'ОБРАЗЦЫ И РЕФЕРЕНСЫ\n';
+            text += '-'.repeat(60) + '\n';
+            data.references.forEach((url, index) => {
+                text += `${index + 1}. ${url}\n`;
+            });
+            text += '\n';
+
+            text += 'ДИЗАЙН\n';
+            text += '-'.repeat(60) + '\n';
+            text += `Стиль: ${data.design.style || 'Не указан'}\n`;
+            text += `Цвета: ${data.design.colors || 'Не указаны'}\n\n`;
+
+            text += 'ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ\n';
+            text += '-'.repeat(60) + '\n';
+            text += `Особые требования: ${data.additional.requirements || 'Нет'}\n`;
+            text += `Конкуренты: ${data.additional.competitors || 'Не указаны'}\n\n`;
+
+            text += '='.repeat(60) + '\n';
+            text += `Дата заполнения: ${new Date().toLocaleString('ru-RU')}\n`;
+
+            return text;
+        }
+
+        function getBudgetLabel(value) {
+            const labels = {
+                'under-100k': 'До 100 000 ₽',
+                '100k-300k': '100 000 - 300 000 ₽',
+                '300k-500k': '300 000 - 500 000 ₽',
+                '500k-1m': '500 000 - 1 000 000 ₽',
+                'over-1m': 'Свыше 1 000 000 ₽'
+            };
+            return labels[value] || 'Не указан';
+        }
+
+        function getTimelineLabel(value) {
+            const labels = {
+                'asap': 'Как можно скорее',
+                '1-2months': '1-2 месяца',
+                '3-4months': '3-4 месяца',
+                '5-6months': '5-6 месяцев',
+                'flexible': 'Гибкие сроки'
+            };
+            return labels[value] || 'Не указан';
+        }
+
+        function getStackLabel(value) {
+            const labels = {
+                'nextjs': 'Next.js (React)',
+                'react': 'React',
+                'vue': 'Vue.js',
+                'wordpress': 'WordPress + WooCommerce',
+                'shopify': 'Shopify',
+                'other': 'Другое'
+            };
+            return labels[value] || 'Не указан';
+        }
+
+        function getFunctionLabel(value) {
+            const labels = {
+                'catalog': 'Каталог товаров с фильтрами',
+                'cart': 'Корзина покупок',
+                'checkout': 'Оформление заказа',
+                'payment': 'Интеграция платежных систем',
+                'user-account': 'Личный кабинет пользователя',
+                'auth': 'Регистрация и авторизация',
+                'reviews': 'Отзывы и рейтинги',
+                'wishlist': 'Список желаний',
+                'compare': 'Сравнение товаров',
+                'search': 'Умный поиск',
+                'admin': 'Админ-панель',
+                'inventory': 'Управление складом',
+                'discounts': 'Система скидок и промокодов',
+                'email': 'Email-рассылки',
+                'analytics': 'Аналитика и отчеты',
+                'multilang': 'Мультиязычность',
+                'currency': 'Мультивалютность',
+                'mobile': 'Мобильное приложение',
+                'chat': 'Онлайн-чат поддержки',
+                'subscription': 'Подписки и регулярные заказы'
+            };
+            return labels[value] || value;
+        }
+
+        function downloadResults(text, filename) {
+            const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `опрос_${filename}_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Enter в поле URL добавляет ссылку
+        document.getElementById('referenceUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addReferenceUrl();
+            }
+        });
+    </script>
+</body>
+</html>
